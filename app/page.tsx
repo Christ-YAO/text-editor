@@ -72,7 +72,7 @@ export default function Home() {
               <FormItem>
                 <FormLabel>Description</FormLabel>
                 <FormControl>
-                  <Tiptap description={""} onChange={field.onChange} />
+                  <Tiptap description={field.value} onChange={field.onChange} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
