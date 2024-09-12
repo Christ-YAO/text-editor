@@ -41,7 +41,11 @@ export default function Home() {
       .min(5, { message: "Hey, the title is not long enough" })
       .max(100, { message: "Its too loong" })
       .trim(),
-    price: z.number().min(5, { message: "Hey, the price is not long enough" }),
+    price: z
+      .string()
+      .min(1, { message: "Hey, the price is not long enough" })
+      .refine((value) => !isNaN(Number(value)), { message: "Invalid price" })
+      .transform(Number),
     description: z
       .string()
       .min(5, { message: "Hey, the description is not long enough" })
@@ -116,9 +120,9 @@ export default function Home() {
       <hr className="my-8" />
 
       {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
-      <div className="border border-input bg-accent/30 rounded-md px-2 py-1">
+      <div className="border border-accent/50 bg-accent/15 rounded-[2px] px-3 py-2">
         <p className="text-xl">{values.title}</p>
-        <p>{values.price}</p>
+        <p>{values.price} $</p>
         <HtmlContent content={values.description} />
       </div>
     </main>
