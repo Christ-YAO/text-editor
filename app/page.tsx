@@ -49,7 +49,7 @@ export default function Home() {
   }
 
   return (
-    <main className="p-24">
+    <main className="py-24 px-4 md:px-24 max-w-3xl mx-auto">
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField

@@ -37,7 +37,7 @@ export default function Tiptap({
   });
 
   return (
-    <div className="flex flex-col justify-stretch min-h-[150px]">
+    <div className="flex flex-col justify-stretch min-h-[150px] gap-1">
       <Toolbar editor={editor} />
       <EditorContent editor={editor} />
     </div>
