@@ -64,6 +64,7 @@ export default function Home() {
 
   return (
     <main className="py-14 px-4 md:px-24 max-w-3xl mx-auto">
+      <h1 className="font-semibold mb-10 italic  w-fit">~ <span className="bg-accent/20 p-2 rounded mx-2">BlockNotes</span> ~</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FormField
@@ -108,14 +109,23 @@ export default function Home() {
           <Button type="submit" variant={'outline'}>Submit</Button>
         </form>
       </Form>
-      <hr className="my-8" />
 
-      {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
-      <div className="border border-accent/15 bg-accent/10 rounded-[2px] px-3 py-2 space-y-4">
-        <p className="text-xl">{values.title}</p>
-        <p>{values.price} $</p>
-        <HtmlContent content={values.description} />
-      </div>
+      {values.title !== "" && values.price !== 0 && values.description !== ""
+        ?
+        <>
+          <div className="">
+            <p className="font- mt-16 mb-10 italic  w-fit mx-auto">~ <span className="bg-accent/20 p-2 rounded mx-2">Values</span> ~</p>
+          </div>
+
+          {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
+          <div className="border border-accent/15 bg-accent/10 rounded-[2px] px-3 py-2 space-y-4">
+            <p className="text-xl">{values.title}</p>
+            <p>{values.price} $</p>
+            <HtmlContent content={values.description} />
+          </div>
+        </>
+        :
+        null}
     </main>
   );
 }
