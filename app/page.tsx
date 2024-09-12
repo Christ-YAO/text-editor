@@ -15,9 +15,26 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Tiptap from "@/components/Tiptap";
+import { useState } from "react";
+import HtmlContent from "@/components/HtmlContext";
 
 export default function Home() {
-  
+
+  const [values, setValues] = useState<z.infer<typeof formSchema>>({
+    title: "",
+    price: 0,
+    description: "",
+  });
+
+  // const htmlString = `
+  //   <h1>Bonjour!</h1>
+  //   <p>Ceci est un <strong>texte</strong> avec des balises HTML.</p>
+  //   <ul>
+  //     <li>Item 1</li>
+  //     <li>Item 2</li>
+  //   </ul>
+  // `;
+
   const formSchema = z.object({
     title: z
       .string()
@@ -28,7 +45,7 @@ export default function Home() {
     description: z
       .string()
       .min(5, { message: "Hey, the description is not long enough" })
-      .max(100, { message: "Its too loong" })
+      .max(1000, { message: "Its too loong" })
       .trim(),
   });
 
@@ -46,12 +63,14 @@ export default function Home() {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     console.log(values);
+
+    setValues(values);
   }
 
   return (
-    <main className="py-24 px-4 md:px-24 max-w-3xl mx-auto">
+    <main className="py-14 px-4 md:px-24 max-w-3xl mx-auto">
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <FormField
             control={form.control}
             name="title"
@@ -59,7 +78,20 @@ export default function Home() {
               <FormItem>
                 <FormLabel>Title</FormLabel>
                 <FormControl>
-                  <Input placeholder="Main Title for your product" {...field} />
+                  <Input placeholder="Title" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="price"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Price</FormLabel>
+                <FormControl>
+                  <Input type="number" placeholder="Price" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -78,9 +110,17 @@ export default function Home() {
               </FormItem>
             )}
           />
-          <Button type="submit">Submit</Button>
+          <Button type="submit" variant={'outline'}>Submit</Button>
         </form>
       </Form>
+      <hr className="my-8" />
+
+      {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
+      <div className="border border-input bg-accent/30 rounded-md px-2 py-1">
+        <p className="text-xl">{values.title}</p>
+        <p>{values.price}</p>
+        <HtmlContent content={values.description} />
+      </div>
     </main>
   );
 }
