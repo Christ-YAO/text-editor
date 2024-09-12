@@ -111,7 +111,7 @@ export default function Home() {
       <hr className="my-8" />
 
       {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
-      <div className="border border-accent/50 bg-accent/15 rounded-[2px] px-3 py-2 space-y-4">
+      <div className="border border-accent/15 bg-accent/10 rounded-[2px] px-3 py-2 space-y-4">
         <p className="text-xl">{values.title}</p>
         <p>{values.price} $</p>
         <HtmlContent content={values.description} />
