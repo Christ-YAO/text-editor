@@ -26,15 +26,6 @@ export default function Home() {
     description: "",
   });
 
-  // const htmlString = `
-  //   <h1>Bonjour!</h1>
-  //   <p>Ceci est un <strong>texte</strong> avec des balises HTML.</p>
-  //   <ul>
-  //     <li>Item 1</li>
-  //     <li>Item 2</li>
-  //   </ul>
-  // `;
-
   const formSchema = z.object({
     title: z
       .string()
@@ -58,7 +49,7 @@ export default function Home() {
     mode: "onChange",
     defaultValues: {
       title: "",
-      price: 29.99,
+      price: 0,
       description: "",
     },
   });
@@ -95,7 +86,7 @@ export default function Home() {
               <FormItem>
                 <FormLabel>Price</FormLabel>
                 <FormControl>
-                  <Input type="number" placeholder="Price" {...field} />
+                  <Input placeholder="Price" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -120,7 +111,7 @@ export default function Home() {
       <hr className="my-8" />
 
       {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
-      <div className="border border-accent/50 bg-accent/15 rounded-[2px] px-3 py-2">
+      <div className="border border-accent/50 bg-accent/15 rounded-[2px] px-3 py-2 space-y-4">
         <p className="text-xl">{values.title}</p>
         <p>{values.price} $</p>
         <HtmlContent content={values.description} />
