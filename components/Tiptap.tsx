@@ -4,6 +4,7 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Toolbar from "./Toolbar";
 import Heading from "@tiptap/extension-heading"
+import Underline from "@tiptap/extension-underline";
 
 export default function Tiptap({
   description,
@@ -20,7 +21,8 @@ export default function Tiptap({
           class: "text-xl font-bold",
           levels: [2],
         }
-      })
+      }),
+      Underline
     ],
     content: description,
     editorProps: {
@@ -39,7 +41,7 @@ export default function Tiptap({
   return (
     <div className="flex flex-col justify-stretch min-h-[150px] gap-1">
       <Toolbar editor={editor} />
-      <EditorContent editor={editor} />
+      <EditorContent  style={{ whiteSpace: "pre-line" }} editor={editor} />
     </div>
   );
 }
