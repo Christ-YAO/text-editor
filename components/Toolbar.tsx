@@ -40,7 +40,7 @@ export default function Toolbar({ editor }: Props) {
 
   if (!editor) return null;
   return (
-    <div className="border border-input bg-background rounded-md px-2 py-1 space-x-1">
+    <div className="border border-input bg-[#000000cc] backdrop-blur-lg z-50 rounded-md px-2 py-1 space-x-1 sticky top-0">
       <Toggle
         size={"sm"}
         pressed={editor.isActive("undo")}
