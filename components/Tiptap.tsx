@@ -5,6 +5,7 @@ import StarterKit from "@tiptap/starter-kit";
 import Toolbar from "./Toolbar";
 import Heading from "@tiptap/extension-heading"
 import Underline from "@tiptap/extension-underline";
+import Image from '@tiptap/extension-image';
 
 export default function Tiptap({
   description,
@@ -22,7 +23,8 @@ export default function Tiptap({
           levels: [2],
         }
       }),
-      Underline
+      Underline,
+      Image
     ],
     content: description,
     editorProps: {

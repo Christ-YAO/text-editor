@@ -1,6 +1,6 @@
 "use client";
 
-import { type Editor } from "@tiptap/react";
+import { Editor } from "@tiptap/react";
 import {
   Bold,
   Strikethrough,
@@ -12,18 +12,49 @@ import {
   Quote,
   Undo,
   Redo,
-  Code
+  Code,
+  Image
 } from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
+import { useRef } from "react";
 
 type Props = {
   editor: Editor | null;
 };
 
 export default function Toolbar({ editor }: Props) {
+
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const url = reader.result as string;
+        editor?.chain().focus().setImage({ src: url }).run();
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   if (!editor) return null;
   return (
     <div className="border border-input bg-background rounded-md px-2 py-1 space-x-1">
+      <Toggle
+        size={"sm"}
+        pressed={editor.isActive("undo")}
+        onPressedChange={() => editor.chain().focus().undo().run()}
+      >
+        <Undo className="w-4 h-4" />
+      </Toggle>
+      <Toggle
+        size={"sm"}
+        pressed={editor.isActive("redo")}
+        onPressedChange={() => editor.chain().focus().redo().run()}
+      >
+        <Redo className="w-4 h-4" />
+      </Toggle>
       <Toggle
         size={"sm"}
         pressed={editor.isActive("heading")}
@@ -89,19 +120,19 @@ export default function Toolbar({ editor }: Props) {
       >
         <Code className="w-4 h-4" />
       </Toggle>
+
+      <input
+        type="file"
+        ref={fileInputRef}
+        accept="image/*"
+        className="hidden"
+        onChange={handleImageUpload}
+      />
       <Toggle
         size={"sm"}
-        pressed={editor.isActive("undo")}
-        onPressedChange={() => editor.chain().focus().undo().run()}
+        onPressedChange={() => fileInputRef.current?.click()}
       >
-        <Undo className="w-4 h-4" />
-      </Toggle>
-      <Toggle
-        size={"sm"}
-        pressed={editor.isActive("redo")}
-        onPressedChange={() => editor.chain().focus().redo().run()}
-      >
-        <Redo className="w-4 h-4" />
+        <Image className="w-4 h-4" />
       </Toggle>
     </div>
   );

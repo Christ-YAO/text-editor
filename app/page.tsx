@@ -40,7 +40,7 @@ export default function Home() {
     description: z
       .string()
       .min(5, { message: "Hey, the description is not long enough" })
-      .max(1000, { message: "Its too loong" })
+      // .max(1000, { message: "Its too loong" })
       .trim(),
   });
 
