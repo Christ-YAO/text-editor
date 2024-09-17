@@ -9,6 +9,7 @@ import Image from '@tiptap/extension-image';
 import { Color } from '@tiptap/extension-color'
 import TextStyle from '@tiptap/extension-text-style'
 import Highlight from "@tiptap/extension-highlight";
+import CodeBlock from '@tiptap/extension-code-block'
 
 export default function Tiptap({
   description,
@@ -32,7 +33,8 @@ export default function Tiptap({
       TextStyle,
       Highlight.configure({
         multicolor: true
-      })
+      }),
+      CodeBlock
     ],
     content: description,
     editorProps: {
@@ -51,7 +53,7 @@ export default function Tiptap({
   return (
     <div className="flex flex-col justify-stretch min-h-[150px] gap-1">
       <Toolbar editor={editor} />
-      <EditorContent  style={{ whiteSpace: "pre-line" }} editor={editor} />
+      <EditorContent style={{ whiteSpace: "pre-line" }} editor={editor} />
     </div>
   );
 }

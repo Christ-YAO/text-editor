@@ -13,7 +13,8 @@ import {
   Undo,
   Redo,
   Code,
-  Image
+  Image,
+  Terminal
 } from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
 import { useRef } from "react";
@@ -140,7 +141,16 @@ export default function Toolbar({ editor }: Props) {
         <Code className="w-4 h-4" />
       </Toggle>
 
-      <input
+      {/* Bouton pour insérer un bloc de code */}
+      <Toggle
+        size={"sm"}
+        pressed={editor.isActive("codeBlock")}
+        onPressedChange={() => editor.chain().focus().toggleCodeBlock().run()}
+      >
+        <Terminal className="w-4 h-4" />
+      </Toggle>
+
+      <Input
         type="file"
         ref={fileInputRef}
         accept="image/*"
