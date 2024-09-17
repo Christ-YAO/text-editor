@@ -6,7 +6,7 @@ interface HtmlContentProps {
 
 const HtmlContent: React.FC<HtmlContentProps> = ({ content }) => {
   return (
-    <div style={{ whiteSpace: "pre-line" }} dangerouslySetInnerHTML={{ __html: content }} />
+    <div className='space-y-4' style={{ whiteSpace: "pre-line" }} dangerouslySetInnerHTML={{ __html: content }} />
   );
 };
 

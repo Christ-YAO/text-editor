@@ -63,7 +63,7 @@ export default function Home() {
   }
 
   return (
-    <main className="py-14 px-4 md:px-24 max-w-3xl mx-auto relative">
+    <main className="py-14 px-4 md:px-24 max-w-3xl mx-auto font-[family-name:var(--font-geist-sans)]">
       <h1 className="font-semibold mb-10 italic  w-fit">~ <span className="bg-accent/20 p-2 rounded mx-2">BlockNotes</span> ~</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -72,7 +72,7 @@ export default function Home() {
             name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Title</FormLabel>
+                <FormLabel className="font-extralight">Title</FormLabel>
                 <FormControl>
                   <Input placeholder="Title" {...field} />
                 </FormControl>
@@ -85,7 +85,7 @@ export default function Home() {
             name="price"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Price</FormLabel>
+                <FormLabel className="font-extralight">Price</FormLabel>
                 <FormControl>
                   <Input placeholder="Price" {...field} />
                 </FormControl>
@@ -98,7 +98,7 @@ export default function Home() {
             name="description"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Description</FormLabel>
+                <FormLabel className="font-extralight">Description</FormLabel>
                 <FormControl>
                   <Tiptap description={field.value} onChange={field.onChange} />
                 </FormControl>
@@ -106,7 +106,7 @@ export default function Home() {
               </FormItem>
             )}
           />
-          <Button type="submit" variant={'outline'}>Submit</Button>
+          <Button type="submit" variant={'outline'} className="font-extralight">Submit</Button>
         </form>
       </Form>
 

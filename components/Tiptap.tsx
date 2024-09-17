@@ -6,6 +6,8 @@ import Toolbar from "./Toolbar";
 import Heading from "@tiptap/extension-heading"
 import Underline from "@tiptap/extension-underline";
 import Image from '@tiptap/extension-image';
+import { Color } from '@tiptap/extension-color'
+import TextStyle from '@tiptap/extension-text-style'
 
 export default function Tiptap({
   description,
@@ -24,7 +26,9 @@ export default function Tiptap({
         }
       }),
       Underline,
-      Image
+      Image,
+      Color,
+      TextStyle
     ],
     content: description,
     editorProps: {

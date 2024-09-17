@@ -16,13 +16,16 @@ import {
   Image
 } from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import { Input } from "./ui/input";
 
 type Props = {
   editor: Editor | null;
 };
 
 export default function Toolbar({ editor }: Props) {
+
+  const [color, setColor] = useState("#FFFFFF");
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -38,9 +41,15 @@ export default function Toolbar({ editor }: Props) {
     }
   };
 
+  const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newColor = event.target.value;
+    setColor(newColor);
+    editor?.chain().focus().setColor(newColor).run();
+  };
+
   if (!editor) return null;
   return (
-    <div className="border border-input bg-[#000000cc] backdrop-blur-lg z-50 rounded-md px-2 py-1 space-x-1 sticky top-0">
+    <div className="border border-input bg-[#000000cc] backdrop-blur-lg z-50 rounded-md px-2 py-1 space-x-1 sticky top-0 flex items-center">
       <Toggle
         size={"sm"}
         pressed={editor.isActive("undo")}
@@ -55,6 +64,17 @@ export default function Toolbar({ editor }: Props) {
       >
         <Redo className="w-4 h-4" />
       </Toggle>
+      <Input
+        type="color"
+        onInput={event => {
+          const target = event.target as HTMLInputElement;
+          editor.chain().focus().setColor(target.value).run();
+        }}
+        value={editor.getAttributes('textStyle').color}
+        onChange={handleColorChange}
+        className="w-6 p-0 border-none h-6 border cursor-pointer"
+        data-testid="setColor"
+      />
       <Toggle
         size={"sm"}
         pressed={editor.isActive("heading")}
