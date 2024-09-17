@@ -16,7 +16,7 @@ import {
   Image
 } from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Input } from "./ui/input";
 
 type Props = {
@@ -24,8 +24,6 @@ type Props = {
 };
 
 export default function Toolbar({ editor }: Props) {
-
-  const [color, setColor] = useState("#FFFFFF");
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -39,12 +37,6 @@ export default function Toolbar({ editor }: Props) {
       };
       reader.readAsDataURL(file);
     }
-  };
-
-  const handleColorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newColor = event.target.value;
-    setColor(newColor);
-    editor?.chain().focus().setColor(newColor).run();
   };
 
   if (!editor) return null;
@@ -71,9 +63,16 @@ export default function Toolbar({ editor }: Props) {
           editor.chain().focus().setColor(target.value).run();
         }}
         value={editor.getAttributes('textStyle').color}
-        onChange={handleColorChange}
         className="w-6 p-0 border-none h-6 border cursor-pointer"
-        data-testid="setColor"
+      />
+      <Input
+        type="color"
+        onInput={event => {
+          const target = event.target as HTMLInputElement;
+          editor.chain().focus().toggleHighlight({ color: target.value }).run();
+        }}
+        value={editor.getAttributes('Highlight').color}
+        className="w-6 p-0 border-none h-6 border cursor-pointer"
       />
       <Toggle
         size={"sm"}

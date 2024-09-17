@@ -8,6 +8,7 @@ import Underline from "@tiptap/extension-underline";
 import Image from '@tiptap/extension-image';
 import { Color } from '@tiptap/extension-color'
 import TextStyle from '@tiptap/extension-text-style'
+import Highlight from "@tiptap/extension-highlight";
 
 export default function Tiptap({
   description,
@@ -28,7 +29,10 @@ export default function Tiptap({
       Underline,
       Image,
       Color,
-      TextStyle
+      TextStyle,
+      Highlight.configure({
+        multicolor: true
+      })
     ],
     content: description,
     editorProps: {

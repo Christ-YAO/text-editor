@@ -115,9 +115,9 @@ export default function Home() {
         <>
           <div className="w-full">
             <div className="mt-16 mb-10 italic mx-auto flex items-center gap-4 justify-between w-full">
-              <div className="bg-accent/20 h-0.5 mx-2 flex-1 w-2"></div>
+              <div className="bg-accent/10 h-0.5 mx-2 flex-1 w-2"></div>
               <span className="bg-accent/20 p-2 rounded flex-1 text-center">Values</span>
-              <div className="bg-accent/20 h-0.5 flex-1 w-2"></div>
+              <div className="bg-accent/10 h-0.5 flex-1 w-2"></div>
             </div>
           </div>
 
