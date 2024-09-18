@@ -9,8 +9,25 @@ import Image from '@tiptap/extension-image';
 import { Color } from '@tiptap/extension-color'
 import TextStyle from '@tiptap/extension-text-style'
 import Highlight from "@tiptap/extension-highlight";
-import CodeBlock from '@tiptap/extension-code-block'
 import TextAlign from '@tiptap/extension-text-align'
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
+import css from 'highlight.js/lib/languages/css'
+import js from 'highlight.js/lib/languages/javascript'
+import ts from 'highlight.js/lib/languages/typescript'
+import html from 'highlight.js/lib/languages/xml'
+
+// load all languages with "all" or common languages with "common"
+import { all, createLowlight } from 'lowlight'
+
+// create a lowlight instance with all languages loaded
+const lowlight = createLowlight(all)
+
+// This is only an example, all supported languages are already loaded above
+// but you can also register only specific languages to reduce bundle-size
+lowlight.register('html', html)
+lowlight.register('css', css)
+lowlight.register('js', js)
+lowlight.register('ts', ts)
 
 export default function Tiptap({
   description,
@@ -35,7 +52,9 @@ export default function Tiptap({
       Highlight.configure({
         multicolor: true
       }),
-      CodeBlock,
+      CodeBlockLowlight.configure({
+        lowlight,
+      }),
       TextAlign.configure({
         types: ['heading', 'paragraph'],
       }),

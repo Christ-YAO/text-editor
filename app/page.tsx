@@ -17,6 +17,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import Tiptap from "@/components/Tiptap";
 import { useState } from "react";
 import HtmlContent from "@/components/HtmlContext";
+import "./App.css";
 
 export default function Home() {
 
