@@ -14,11 +14,14 @@ import {
   Redo,
   Code,
   Image,
-  Terminal
+  Terminal,
+  Palette,
+  Brush
 } from "lucide-react";
 import { Toggle } from "@/components/ui/toggle";
 import { useRef } from "react";
 import { Input } from "./ui/input";
+import { Label } from "./ui/label";
 
 type Props = {
   editor: Editor | null;
@@ -57,24 +60,49 @@ export default function Toolbar({ editor }: Props) {
       >
         <Redo className="w-4 h-4" />
       </Toggle>
+      <div className="relative">
+        <Input
+          type="color"
+          id="textColor"
+          // name="textColor"
+          onInput={event => {
+            const target = event.target as HTMLInputElement;
+            editor.chain().focus().setColor(target.value).run();
+          }}
+          value={editor.getAttributes('textStyle').color}
+          className="w-6 p-0 border-none h-6 border cursor-pointer invisible absolute -left-full"
+        />
+        <Toggle
+          size={"sm"}
+          pressed={editor.isActive("textStyle")}
+          className="cursor-auto"
+        >
+          <Label htmlFor="textColor" className="cursor-pointer">
+            <Palette className="w-4 h-4" />
+          </Label>
+        </Toggle>
+      </div>
+      <div className="relative">
       <Input
         type="color"
-        onInput={event => {
-          const target = event.target as HTMLInputElement;
-          editor.chain().focus().setColor(target.value).run();
-        }}
-        value={editor.getAttributes('textStyle').color}
-        className="w-6 p-0 border-none h-6 border cursor-pointer"
-      />
-      <Input
-        type="color"
+        id="bgColor"
         onInput={event => {
           const target = event.target as HTMLInputElement;
           editor.chain().focus().toggleHighlight({ color: target.value }).run();
         }}
         value={editor.getAttributes('Highlight').color}
-        className="w-6 p-0 border-none h-6 border cursor-pointer"
+        className="w-6 p-0 border-none h-6 border cursor-pointer invisible absolute -left-full"
       />
+      <Toggle
+          size={"sm"}
+          pressed={editor.isActive("textStyle")}
+          className="cursor-auto"
+        >
+          <Label htmlFor="bgColor" className="cursor-pointer">
+            <Brush className="w-4 h-4" />
+          </Label>
+        </Toggle>
+      </div>
       <Toggle
         size={"sm"}
         pressed={editor.isActive("heading")}
