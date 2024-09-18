@@ -14,7 +14,6 @@ import {
   Redo,
   Code,
   Image,
-  Terminal,
   Palette,
   Brush
 } from "lucide-react";
@@ -22,6 +21,8 @@ import { Toggle } from "@/components/ui/toggle";
 import { useRef } from "react";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
+import Ellips from "./ui/Ellips";
+
 
 type Props = {
   editor: Editor | null;
@@ -83,17 +84,17 @@ export default function Toolbar({ editor }: Props) {
         </Toggle>
       </div>
       <div className="relative">
-      <Input
-        type="color"
-        id="bgColor"
-        onInput={event => {
-          const target = event.target as HTMLInputElement;
-          editor.chain().focus().toggleHighlight({ color: target.value }).run();
-        }}
-        value={editor.getAttributes('Highlight').color}
-        className="w-6 p-0 border-none h-6 border cursor-pointer invisible absolute -left-full"
-      />
-      <Toggle
+        <Input
+          type="color"
+          id="bgColor"
+          onInput={event => {
+            const target = event.target as HTMLInputElement;
+            editor.chain().focus().toggleHighlight({ color: target.value }).run();
+          }}
+          value={editor.getAttributes('Highlight').color}
+          className="w-6 p-0 border-none h-6 border cursor-pointer invisible absolute -left-full"
+        />
+        <Toggle
           size={"sm"}
           pressed={editor.isActive("textStyle")}
           className="cursor-auto"
@@ -161,13 +162,6 @@ export default function Toolbar({ editor }: Props) {
       >
         <Quote className="w-4 h-4" />
       </Toggle>
-      <Toggle
-        size={"sm"}
-        pressed={editor.isActive("code")}
-        onPressedChange={() => editor.chain().focus().setCode().run()}
-      >
-        <Code className="w-4 h-4" />
-      </Toggle>
 
       {/* Bouton pour insérer un bloc de code */}
       <Toggle
@@ -175,7 +169,7 @@ export default function Toolbar({ editor }: Props) {
         pressed={editor.isActive("codeBlock")}
         onPressedChange={() => editor.chain().focus().toggleCodeBlock().run()}
       >
-        <Terminal className="w-4 h-4" />
+        <Code className="w-4 h-4" />
       </Toggle>
 
       <Input
@@ -191,6 +185,7 @@ export default function Toolbar({ editor }: Props) {
       >
         <Image className="w-4 h-4" />
       </Toggle>
+      <Ellips editor={editor} />
     </div>
   );
 }
